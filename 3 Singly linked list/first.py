@@ -4,26 +4,26 @@ class Node:
         self.next = next
 
 class SLL:
-    def __init__(self, node=None):
-        self.start = node
+    def __init__(self, start=None):
+        self.start = start
 
     def is_empty(self):
         return self.start is None
 
     def insert_at_start(self, x):
-        new_node = Node(x)
-        new_node.next = self.start
-        self.start = new_node
+        newnode = Node(x)
+        newnode.next = self.start
+        self.start = newnode
     
     def insert_at_last(self, x):
-        new_node = Node(x)
+        newnode = Node(x)
         if self.is_empty():
-            self.start = new_node
+            self.start = newnode
         else:
             t = self.start
             while t.next is not None:
                 t = t.next
-            t.next = new_node
+            t.next = newnode
    
     def search(self,x):
         if self.is_empty():
@@ -86,6 +86,22 @@ class SLL:
                     t=t.next
                 t.next=t.next.next
 
+    def __iter__(self):
+        return SLLIterator(self.start)
+class SLLIterator:
+    def __init__(self,start):
+        self.current=start
+    
+    def __iter__(self):
+        return self
+    
+    def __next__(self):
+        if not self.current:
+            raise StopIteration
+        data=self.current.item
+        self.current=self.current.next
+        return data
+
 s1=SLL()
 s1.insert_at_start(10) 
 s1.insert_at_start(30) 
@@ -101,6 +117,10 @@ s1.delete_first()
 s1.delete_last()
 s1.delete_Item(100)
 s1.print_list()
+
+for x in s1:
+    print(x,end=' ')
+print()
 
 
         
