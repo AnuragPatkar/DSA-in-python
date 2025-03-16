@@ -69,8 +69,21 @@ def insert_after(self,key,x):
             print(t.item,end=' ')
             t=t.next """
 
-# 9. In class SLL, implement iterator for SLL to access all the elements of the list in a sequence.
-
+""" # 9. In class SLL, implement iterator for SLL to access all the elements of the list in a sequence.
+class SLLIterator:
+    def __init__(self,start):
+        self.current=start
+    
+    def __iter__(self):
+        return self
+    
+    def __next__(self):
+        if not self.current:
+            raise StopIteration
+        data=self.current.item
+        self.current=self.current.next
+        return data """
+    
 """ # 10. In class SLL, define a method delete_first() to delete first element from the list.
     def delete_first(self):
         if self.is_empty():
