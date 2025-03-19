@@ -42,10 +42,10 @@ class BST:
                 return t.item
             if data<t.item:
                 t=t.left
-            if data>t.item:
+            elif data>t.item:
                 t=t.right
-        if t is None:
-            return None
+            else:
+                return None
 
  
     def preorder(self):
@@ -75,25 +75,38 @@ class BST:
         _postorder(self.root)
         print()
 
-    def minimum(self):
-        if self.is_empty():
-            return None
-        t=self.root
-        while t.left is not None:
-            t=t.left
-        return t.item
+    def min_value(self,temp):
+        current=temp
+        while current.left is not None:
+            current=current.left
+        return current.item
     
-    def maximum(self):
-        if self.is_empty():
-            return None
-        t=self.root
-        while t.right is not None:
-            t=t.right
-        return t.item
+    def max_value(self,temp):
+        current=temp
+        while current.right is not None:
+            current=current.right
+        return current.item
 
     def delete_item(self, data):
-        pass
-        
+        def _delete_node(node, data):
+            if node is None:
+                return node
+            if data < node.item:
+                node.left = _delete_node(node.left, data)
+            elif data > node.item:
+                node.right = _delete_node(node.right, data)
+            else:
+                if node.left is None:
+                    return node.right
+                elif node.right is None:
+                    return node.left
+                temp = self.min_value(node.right)
+                node.item = temp
+                node.right = _delete_node(node.right, temp)
+            return node
+
+        self.root = _delete_node(self.root, data)
+        self.item_count -= 1
 
     def size(self):
         return self.item_count
@@ -111,6 +124,8 @@ print(b1.search(100))
 b1.inorder()
 b1.preorder()
 b1.postorder()
-print(b1.minimum())
-print(b1.maximum())
+print(b1.min_value(b1.root))
+print(b1.max_value(b1.root))
 print(b1.size())
+b1.delete_item(50)
+b1.preorder()
