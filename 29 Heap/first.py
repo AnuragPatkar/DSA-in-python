@@ -1,17 +1,11 @@
-# Assignment-29: Heap
-
-""" # 1. Define a class Heap to implement Heap data structure with _init_method to create empty heap list.
 class Heap:
     def __init__(self):
-        self.heap = [] """
-
-""" # 2. In class Heap, define a method to create heap from a given list of elements.
+        self.heap = []
 
     def create_heap(self,data_list):
         for e in data_list:
-            self.insert(e) """
+            self.insert(e)
 
-""" # 3. In class Heap, define a method insert to insert a given element in the heap at appropriate position.
     def insert(self, data):
         self.heap.append(data)
         index = len(self.heap) - 1
@@ -20,24 +14,14 @@ class Heap:
         while index > 0 and self.heap[index] > self.heap[parent_index]:
             self.heap[index], self.heap[parent_index] = self.heap[parent_index], self.heap[index]
             index = parent_index
-            parent_index = (index - 1) // 2 """
-
-""" # 4. In class Heap, define a top method which returns the top element of the Heap. Raise an exception if Heap is empty.
+            parent_index = (index - 1) // 2
+         
     def top(self):
         if len(self.heap)==0:
             raise EmptyHeapException()
         else:
-            return self.heap[0] """
-
-""" # 5. Define a class Empty HeapException to describe custom exception.
-class EmptyHeapException(Exception):
-    def __init__(self,msg="Heap is empty"):
-        self.msg=msg
-
-    def __str__(self):
-        return self.msg """
-
-""" # 6. In class Heap, define a method delete which deletes the top element and returns it. Raise an exception if Heap is empty.
+            return self.heap[0]
+        
     def delete(self):
         if len(self.heap) == 0:
             raise EmptyHeapException()
@@ -64,12 +48,24 @@ class EmptyHeapException(Exception):
             leftchild = 2 * index + 1
             rightchild = 2 * index + 2
         
-        return max_value """
-
-""" # 7. In class Heap, define a method heapSort to sort a given list with the help of Heap.
+        return max_value
+    
     def heapsort(self, list1):
         self.create_heap(list1)
         sorted_list = []
         while len(self.heap) > 0:
             sorted_list.append(self.delete())
-        return sorted_list[::-1] """
+        return sorted_list[::-1]
+
+class EmptyHeapException(Exception):
+    def __init__(self,msg="Heap is empty"):
+        self.msg=msg
+
+    def __str__(self):
+        return self.msg
+    
+
+l1=[10,55,42,61,78,16,48,85,25]
+H=Heap()
+l1=H.heapsort(l1)
+print(l1)
